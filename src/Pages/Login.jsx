@@ -28,8 +28,8 @@ const Login = () => {
   };
 
   return (
-    <div className="h-[100vh] w-full flex items-center justify-center">
-      <div className="h-fit w-fit text-2xl px-10 py-10 flex flex-col items-center justify-center gap-24 border border-gray-200  rounded-md drop-shadow-lg">
+    <div className="h-[100vh] w-full flex items-center justify-center drop-shadow-lg">
+      <div className="h-fit w-fit text-2xl px-10 py-10 flex flex-col items-center justify-center gap-24 border border-gray-200  rounded-md drop-shadow-sm">
         <div className="space-y-5">
             <div className="w-full h-fit flex items-end justify-end">
                 <Link to="/">
@@ -42,7 +42,7 @@ const Login = () => {
         <div className="w-full flex flex-col gap-1">
           <button
             className="flex gap-2 font-light
-                 items-center justify-center py-2 appearance-none border border-gray-200 w-full rounded-md hover:bg-black
+                 items-center justify-center py-2 appearance-none border border-gray-200 w-full rounded-md hover:bg-black hover:text-gray-200
                  "
             onClick={handleAuth}
           >

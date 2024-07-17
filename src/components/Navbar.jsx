@@ -7,11 +7,14 @@ import { setInputValue } from "../redux/slices/InputSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Select } from "antd";
+import InfoModal from "./Modal";
 
 
 const Navbar = () => {
   const [breeds, setBreeds] = useState([]);
   const [selected, setSelected] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,8 +44,8 @@ const Navbar = () => {
 
   const handleChange = (value) => {
     console.log(value);
-    const selectedBreed = breeds.find(breed => breed.id === parseInt(value));
-    const breedName = selectedBreed ? selectedBreed.name : '';
+    const selectedBreed = breeds.find((breed) => breed.id === parseInt(value));
+    const breedName = selectedBreed ? selectedBreed.name : "";
     setSelected(breedName);
     dispatch(setInputValue(value));
   };
@@ -60,13 +63,10 @@ const Navbar = () => {
     fetchBreed();
   }, [selected]);
 
-
   return (
-    <div className="flex flex-col">
-      <div className="h-fit w-full flex flex-col gap-5 md:flex-row justify-between py-5 border-b border-gray-200 drop-shadow-lg">
-        <h1 className="text-4xl font-bold text-center text-gray-300">
-          doglovers.
-        </h1>
+    <div className="flex flex-col drop-shadow-sm">
+      <div className="h-fit w-full flex flex-col gap-5 md:flex-row justify-between py-5 border-b border-gray-200">
+        <h1 className="text-4xl font-bold text-center">doglovers.</h1>
         <div className="w-full flex items-center justify-center">
           <Select
             className="w-full md:w-[40%] text-black h-10"
@@ -85,9 +85,11 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      <div className=" text-xl py-5 font-light w-full text-left">
+      <div className=" flex justify-between text-xl py-5 font-light w-full text-left">
         search results for:{" "}
         <span className=" font-semibold text-gray-400">{selected}</span>
+        <button onClick={() => setIsModalOpen(true)}>description.</button>
+        {isModalOpen && <InfoModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} item={breeds.filter((breed) => breed?.name === selected)} />}
       </div>
     </div>
   );

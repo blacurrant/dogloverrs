@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -15,13 +21,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
-
-.custom-modal .ant-modal-content {
+/* .custom-modal .ant-modal-content {
   @apply bg-white bg-opacity-90;
-}
+} */
 
 .custom-modal .ant-modal-mask {
-  @apply bg-black bg-opacity-50;
+  @apply bg-black bg-opacity-30;
 }
