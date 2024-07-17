@@ -45,7 +45,7 @@ const LandingPage = () => {
     console.log("handleLike", dogId);
     setDogLikes((prevLikes) => ({
       ...prevLikes,
-      [dogId]: (prevLikes[dogId] || 0) + 1,
+      [dogId]: (dogLikes[dogId] || 0) + 1,
     }));
   };
 
@@ -57,6 +57,7 @@ const LandingPage = () => {
   };
 
   const saveLikesToFirestore = async () => {
+    console.log(dogLikes, "dogLikes");
     try {
       await setDoc(
         doc(db, "dogs", "allDogs"),
@@ -70,17 +71,18 @@ const LandingPage = () => {
 
   useEffect(() => {
     if (Object.keys(dogLikes)?.length > 0) {
-      const saveInterval = setInterval(saveLikesToFirestore, 60000);
-
-      return () => {
-        clearInterval(saveInterval);
-        saveLikesToFirestore();
-      };
+      console.log(dogLikes, "dogLikes");
+      // const saveInterval = setInterval(saveLikesToFirestore, 60000);
+      // return () => {
+      //   clearInterval(saveInterval);
+      //   saveLikesToFirestore();
+      // };
+      saveLikesToFirestore();
     }
   }, [dogLikes]);
 
   useEffect(() => {
-    fetchLikes();
+    fetchLikes().then(() => console.log(dogLikes));
   }, []);
 
   useEffect(() => {
@@ -88,27 +90,27 @@ const LandingPage = () => {
   }, [input]);
 
   return (
-    <div className="flex flex-col gap-10 items-center text-3xl font-bold h-[80vh] overflow-y-scroll">
+    <div className="flex flex-col gap-10 items-center text-3xl font-bold h-[82.7vh] overflow-y-scroll ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         {dogData.map((item, index) => {
           return (
             <div
-              className="relative border border-black rounded-lg cursor-pointer"
-              key={index}
+              className="relative border border-black rounded-lg"
+              key={item.id}
             >
               <img
                 className="h-[40vh] w-[100%] object-cover rounded-lg"
                 src={item.url}
               />
-              <div className="bg-black bg-opacity-50 absolute bottom-0 w-full flex justify-evenly px-5 py-2">
-                <button
-                  className="text-2xl font-light text-gray-100"
+                <div
                   onClick={(e) => handleLike(item?.id)}
+                  className="bg-yellow-100 bg-opacity-70 absolute bottom-0 w-full flex justify-evenly items-center rounded-b-md"
                 >
-                  <FaHeart />
-                </button>
-                {/* {likeCount} */}
-              </div>
+                  <button className="text-2xl flex justify-center px-5 py-3 w-[50%] h-full font-light text-black hover:bg-red-600 hover:text-white rounded-bl-md">
+                    <FaHeart />
+                  </button>
+                  <p className="text-2xl text-center w-[50%] text-black">{dogLikes[item.id] !== undefined ? dogLikes[item.id] : "0"}</p>
+                </div>
             </div>
           );
         })}

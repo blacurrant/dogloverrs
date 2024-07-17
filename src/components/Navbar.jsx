@@ -9,17 +9,17 @@ import axios from "axios";
 import { Select } from "antd";
 import InfoModal from "./Modal";
 
-
 const Navbar = () => {
   const [breeds, setBreeds] = useState([]);
   const [selected, setSelected] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const fetchBreed = async () => {
+    setIsLoading(true);
     const response = await axios
       .get("https://api.thedogapi.com/v1/breeds", {
         headers: {
@@ -31,6 +31,7 @@ const Navbar = () => {
       .then((response) => {
         console.log(response);
         setBreeds(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -65,7 +66,7 @@ const Navbar = () => {
 
   return (
     <div className="flex flex-col drop-shadow-sm">
-      <div className="h-fit w-full flex flex-col gap-5 md:flex-row justify-between py-5 border-b border-gray-200">
+      <div className="h-fit w-full flex flex-col gap-5 md:flex-row justify-between py-5 border-b border-gray-950">
         <h1 className="text-4xl font-bold text-center">doglovers.</h1>
         <div className="w-full flex items-center justify-center">
           <Select
@@ -87,9 +88,26 @@ const Navbar = () => {
       </div>
       <div className=" flex justify-between text-xl py-5 font-light w-full text-left">
         search results for:{" "}
-        <span className=" font-semibold text-gray-400">{selected}</span>
-        <button onClick={() => setIsModalOpen(true)}>description.</button>
-        {isModalOpen && <InfoModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} item={breeds.filter((breed) => breed?.name === selected)} />}
+        {isLoading ? (
+          <span className=" font-semibold text-gray-950 animate-bounce border-{t,r,b} border-black">....</span>
+        ) : (
+          <span className=" font-semibold text-gray-950">{selected}</span>
+        )}
+        <button
+          className="border border-gray-950 rounded-md px-2 bg-black text-yellow-200 hover:bg-yellow-200 hover:text-black"
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
+          description.
+        </button>
+        {isModalOpen && selected && (
+          <InfoModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            item={breeds.find((breed) => breed?.name === selected)}
+          />
+        )}
       </div>
     </div>
   );
