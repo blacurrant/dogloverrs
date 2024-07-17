@@ -17,7 +17,7 @@ const LandingPage = () => {
   const handleApi = async () => {
     const response = await axios
       .get(
-        ` https://api.thedogapi.com/v1/images/search?limit=10&breed_ids=${input ? input : ""}`,
+        ` https://api.thedogapi.com/v1/images/search?limit=20&breed_ids=${input || ""}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     handleApi();
-  }, []);
+  }, [input]);
 
   return (
     <div className="flex flex-col gap-10 items-center text-3xl font-bold h-[80vh] overflow-y-scroll">
@@ -62,15 +62,15 @@ const LandingPage = () => {
                 <button onClick={handleLike}>
                   <FaHeart />
                 </button>
-                {likeCount}
+                {/* {likeCount} */}
               </div>
             </div>
           );
         })}
       </div>
-      <div  className="w-full h-[10vh] flex justify-center items-center border border-gray-200 rounded-lg py-2 hover:bg-black cursor-pointer">
+      {/* <div  className="w-full h-[10vh] flex justify-center items-center border border-gray-200 rounded-lg py-2 hover:bg-black cursor-pointer">
         <button className="text-2xl font-light text-gray-300">Load More</button>
-      </div>
+      </div> */}
     </div>
   );
 };

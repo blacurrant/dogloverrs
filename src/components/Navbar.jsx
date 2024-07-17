@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Select } from "antd";
 
+
 const Navbar = () => {
   const [breeds, setBreeds] = useState([]);
   const [selected, setSelected] = useState("");
@@ -38,6 +39,14 @@ const Navbar = () => {
     value: `${breed?.id}`,
   }));
 
+  const handleChange = (value) => {
+    console.log(value);
+    const selectedBreed = breeds.find(breed => breed.id === parseInt(value));
+    const breedName = selectedBreed ? selectedBreed.name : '';
+    setSelected(breedName);
+    dispatch(setInputValue(value));
+  };
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -49,7 +58,8 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchBreed();
-  }, []);
+  }, [selected]);
+
 
   return (
     <div className="flex flex-col">
@@ -62,12 +72,7 @@ const Navbar = () => {
             className="w-[40%] text-black h-10"
             showSearch
             placeholder="Select a person"
-            onChange={(value) => {
-              console.log(value);
-              setSelected(value);
-              dispatch(setInputValue(value));
-              window.location.reload();
-            }}
+            onChange={handleChange}
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }

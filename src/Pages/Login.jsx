@@ -36,18 +36,19 @@ const Login = () => {
                     <ImCross />
                 </Link>
             </div>
+            <p className="text-5xl font-light">doglovers.</p>
             <h2 className="text-5xl font-semibold">Sign in with google</h2>
         </div>
-        <div className="w-full flex flex-col gap-2">
+        <div className="w-full flex flex-col gap-1">
           <button
-            className="flex gap-2 font-bold
+            className="flex gap-2 font-light
                  items-center justify-center py-2 appearance-none border border-gray-200 w-full rounded-md hover:bg-black
                  "
             onClick={handleAuth}
           >
             Login <BiLogInCircle />
           </button>
-          <Link className="text-right w-full hover:underline">
+          <Link className="text-left w-full text-lg font-light hover:underline">
             Forgot Password
           </Link>
         </div>

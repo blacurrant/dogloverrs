@@ -17,7 +17,7 @@ const InfoModal = ({ isModalOpen, setIsModalOpen, item }) => {
       <Button type="primary" onClick={showModal}>
         Open Modal
       </Button>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk}>
+      <Modal className='custom-modal' title="Basic Modal" open={isModalOpen} onOk={handleOk}>
         <p>{item.name}</p>
         <p>Some contents...</p>
         <p>Some contents...</p>

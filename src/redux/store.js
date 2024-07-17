@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage";
 
 
 const reducers = combineReducers({
-    inputSlice: InputSlice
+    inputSlice: InputSlice,
 });          
 
 
