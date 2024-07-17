@@ -63,13 +63,13 @@ const Navbar = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="h-[10vh] w-full flex justify-between py-5 border-b border-gray-200 drop-shadow-lg">
-        <h1 className="text-4xl font-bold text-gray-300">
+      <div className="h-fit w-full flex flex-col gap-5 md:flex-row justify-between py-5 border-b border-gray-200 drop-shadow-lg">
+        <h1 className="text-4xl font-bold text-center text-gray-300">
           doglovers.
         </h1>
         <div className="w-full flex items-center justify-center">
           <Select
-            className="w-[40%] text-black h-10"
+            className="w-full md:w-[40%] text-black h-10"
             showSearch
             placeholder="Select a person"
             onChange={handleChange}
